@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anna's Guest Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 60%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anna's Guest Tracker</h1>
+    <form method="POST">
+        <table>
+            <tr>
+                <th>Member</th>
+                <th>Number of Guests</th>
+                <th>Actions</th>
+            </tr>
+            {% for member, guests in guest_list.items() %}
+            <tr>
+                <td>{{ member }}</td>
+                <td>
+                    <input type="number" name="guests" value="{{ guests }}" min="0">
+                </td>
+                <td>
+                    <input type="hidden" name="member_name" value="{{ member }}">
+                    <button type="submit">Update</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <a href="{{ url_for('landing_page') }}">Back to Home</a>
+</body>
+</html>

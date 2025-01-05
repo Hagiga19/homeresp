@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shahaf's Responsibilities</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shahaf's Responsibilities</h1>
+
+    <h2>Alcohol Inventory</h2>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {% for item, quantity in alcohol_inventory.items() %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>{{ quantity }}</td>
+            <td>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="item_name" value="{{ item }}">
+                    <button type="submit" name="action" value="delete_alcohol">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form method="POST">
+        <input type="text" name="item_name" placeholder="Alcohol Type" required>
+        <input type="number" name="quantity" placeholder="Quantity" min="1" required>
+        <button type="submit" name="action" value="add_alcohol">Add Alcohol</button>
+    </form>
+
+    <h2>House Issues</h2>
+    <table>
+        <tr>
+            <th>Issue</th>
+            <th>Actions</th>
+        </tr>
+        {% for index, issue in house_issues %}
+        <tr>
+            <td>{{ issue }}</td>
+            <td>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="index" value="{{ index }}">
+                    <button type="submit" name="action" value="delete_issue">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form method="POST">
+        <input type="text" name="issue" placeholder="Describe Issue" required>
+        <button type="submit" name="action" value="add_issue">Add Issue</button>
+    </form>
+
+    <a href="{{ url_for('landing_page') }}">Back to Home</a>
+</body>
+</html>
